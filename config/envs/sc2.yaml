@@ -1,0 +1,6 @@
+env_args:
+  map_name: "3m"
+  difficulty: "7"
+  game_version: "latest"
+  step_mul: 8
+  replay_dir: ""
