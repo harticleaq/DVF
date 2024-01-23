@@ -2,7 +2,7 @@ import torch
 import torch as th
 from .network.basenet import RNN, Qjoint
 from .network.qmixnet import QMixNet
-from QLMIX_trans.utils.utils import check
+from DVF.utils.utils import check
 
 class POLICY:
     def __init__(self, args):

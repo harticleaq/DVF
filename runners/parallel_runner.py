@@ -1,8 +1,8 @@
 import torch as th
 import numpy as np
 
-from QLMIX_trans.envs import REGISTRY as ENV_REGISTRY
-from QLMIX_trans.componets import REGISTRY as CP_REGISTRY
+from DVF.envs import REGISTRY as ENV_REGISTRY
+from DVF.componets import REGISTRY as CP_REGISTRY
 
 from multiprocessing import Pipe, Process
 from functools import partial

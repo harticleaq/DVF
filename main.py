@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
+"""
+@Author: Anqi Huang
+@Time: 2024/1/23
+"""
+
 import os
 import sys
 import yaml
 import numpy as np
 import torch as th
 import sys
-sys.path.append("C:\haq_project")
 from os.path import dirname, abspath
 from copy import deepcopy
 from utils.logging import get_logger
@@ -13,12 +17,12 @@ from runner import run
 from sacred import Experiment, SETTINGS
 from sacred.observers import FileStorageObserver, MongoObserver
 from sacred.utils import apply_backspaces_and_linefeeds
-
+os.environ["USE_TF"] = 'None'
 
 # SETTINGS['CAPTURE_MODE'] = "fd"
 logger = get_logger()
 
-ex = Experiment("tr-lmix")
+ex = Experiment("dvf")
 # ex = Experiment("test")
 ex.logger = logger
 ex.captured_out_filter = apply_backspaces_and_linefeeds
@@ -49,20 +53,15 @@ def my_main(_run, _config, _log):
     run(_run, config, _log)
 
 
-def start_proc(config, map):
-    for i in range(2, 3):
-        config["seed"] = i
-        # config["target_update_interval"] = config["target_update_interval"]
-        config["lambda_soft_update"] = config["lambda_soft_update"] * (10 ** i)
-        config["env_args"]["map_name"] = map
-        ex.add_config(config)
-        logger.info("Saving to sacred!")
-        # file_obs_path = os.path.join(results_path, "sacred")
-        # ex.observers.append(FileStorageObserver.create(file_obs_path))
-        ex.run_commandline()
+def start_proc(config):
+    ex.add_config(config)
+    logger.info("Saving to sacred!")
+    file_obs_path = os.path.join(results_path, "sacred")
+    ex.observers.append(FileStorageObserver.create(file_obs_path))
+    ex.run_commandline()
+
 
 if __name__ == "__main__":
-    params = sys.argv
     with open(os.path.join(dirname(__file__), "config", "common.yaml"), "r") as f:
         try:
             config = yaml.load(f, Loader=yaml.FullLoader)
@@ -70,7 +69,7 @@ if __name__ == "__main__":
             f"config error: {e}"
 
     env_config = getConfig("sc2", "envs")
-    alg_config = getConfig("tr_lmix", "algs")
+    alg_config = getConfig("dvf", "algs")
     config['env_args']['seed'] = config["seed"]
 
 
@@ -82,24 +81,11 @@ if __name__ == "__main__":
         os.makedirs(model_path)
     config["model_path"] = model_path
     ex.observers.append(MongoObserver.create("localhost:27017", "sacred"))
-    # maps = ["3s5z_vs_3s6z", "bane_vs_bane"]
-    maps = ["3m"]
-    for i in range(len(maps)):
-        start_proc(config, maps[i])
+
+    for i in range(config["round"]):
+        start_proc(config)
 
 
-    start_proc(config, maps[0])
-
-
-    # for i in range(2, 6):
-    #     start_proc(config, i)
-    # ps = [Process(target=start_proc, args=(config, maps[i])) for i in range(2)]
-    # for p in ps:
-    #     p.start()
-    #     time.sleep(3)
-    #
-    # for p in ps:
-    #     p.join()
 
 
 

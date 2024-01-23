@@ -1,8 +1,8 @@
 import torch as th
 import numpy as np
 
-from QLMIX_trans.envs import REGISTRY as ENV_REGISTRY
-from QLMIX_trans.componets import REGISTRY as CP_REGISTRY
+from DVF.envs import REGISTRY as ENV_REGISTRY
+from DVF.componets import REGISTRY as CP_REGISTRY
 
 class EpisodeRunner:
     def __init__(self, args, logger, config, ex_run):
@@ -147,7 +147,6 @@ class EpisodeRunner:
         while time_steps < self.args.n_steps:
             print('Run {}, time_steps:{}'.format(num, time_steps))
             if time_steps // self.args.evaluate_interval > evaluate_steps and time_steps != 0:
-                # 保存模型
                 evaluate_steps += 1
                 self.mac.save_model()
                 win_rate, episode_reward = self.evaluate()

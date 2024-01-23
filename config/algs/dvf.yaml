@@ -1,0 +1,21 @@
+# --- RL hyperparameters ---
+gamma: 0.99 # Discout factor
+batch_size: 8 # Number of episodes to train on
+buffer_size: 5000 # Size of the replay buffer
+lr: 0.0005 # Learning rate for agents
+optimizer: "RMS" # The optimizer type
+grad_norm_clip: 0.5 # Reduce magnitude of gradients above this L2 norm
+rnn_dim: 256 # RNN hidden dim
+hyper_hidden_dim: 128 # QMIX hyper-net hidden dim
+qjoint_dim: 128 # The joint network hidden dim
+epsilon: 1 # Epsilon greedy
+min_epsilon: 0.05 # Min epsilon
+epsilon_steps: 100000 # Epsilon steps
+save_interval: 5000 # How often to save model
+target_update_interval: 300 # Target Q update interval
+train_steps: 8 # Training steps
+n_episodes: 10 # Store n episodes to the buffer
+two_hyper_layers: False # QMIX: the number of hyper-net
+double_Q: False # If use double Q net
+lambda_soft_update: 0.005 # Soft update
+hard_update: False # If use hard update

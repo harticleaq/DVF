@@ -1,14 +1,14 @@
 import numpy as np
 import torch as th
 import importlib
-from QLMIX_trans.utils.utils import check
+from DVF.utils.utils import check
 
 class MAC:
     def __init__(self, args):
         self.args = args
 
         alg = self.args.alg
-        policy_module = importlib.import_module("QLMIX_trans.policy." + alg)
+        policy_module = importlib.import_module("DVF.policy." + alg)
         assert policy_module is not None
         self.policy = policy_module.POLICY(args)
 

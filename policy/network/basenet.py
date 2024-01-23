@@ -32,7 +32,7 @@ class Qjoint(nn.Module):
                                              nn.ReLU(),
                                              nn.Linear(self.args.qjoint_dim, ae_dim))
 
-        # 编码求和之后输入state、所有agent的hidden_state和动作之和
+        
         q_input = self.args.state_shape + self.args.n_actions + self.args.rnn_dim
         self.q = nn.Sequential(nn.Linear(q_input, self.args.qjoint_dim),
                                nn.ReLU(),
@@ -42,7 +42,7 @@ class Qjoint(nn.Module):
                                )
 
 
-    def forward(self, state, hidden, actions):  # (episode_num, max_episode_len, n_agents, n_actions)
+    def forward(self, state, hidden, actions):  
         episode_num, max_episode_len, n_agents, _ = actions.shape
         hidden_actions = torch.cat([hidden, actions], dim=-1)
         hidden_actions = hidden_actions.reshape(-1, self.args.rnn_dim + self.args.n_actions)
