@@ -18,10 +18,13 @@ pip install sacred
 Set up StarCraft II and SMAC with the following command:
 
 ```bash
+bash install_sc2.sh
+```
+It will download SC2.4.6.2.69232 into the 3rdparty folder and copy the maps necessary to run over. You also need to set the global environment variable:
+
+```bash
 export SC2PATH=[Your SC2 Path/StarCraftII]
 ```
-
-It will download SC2.4.6.2.69232 into the 3rdparty folder and copy the maps necessary to run over.
 
 Install Python environment with command:
 
