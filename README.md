@@ -1,6 +1,6 @@
 # DVF: Multi-agent Q-learning with difference value factorization
 
-This repository is the implementation of the paper "VDF: Multi-agent Q-learning with difference value factorization"[[PDF](https://doi.org/10.1016/j.knosys.2024.111422)]. 
+This repository is the implementation of the paper "DVF: Multi-agent Q-learning with difference value factorization"[[PDF](https://doi.org/10.1016/j.knosys.2024.111422)]. 
 
 We conduct the experiments using version SC2.4.6.2.69232, which is same as the SMAC run data release (https://github.com/oxwhirl/smac/releases/tag/v1).
 
